@@ -1,0 +1,24 @@
+[
+  {
+    "name":"fahiz",
+    "age":20
+  },
+  {
+    "name":"minhaj",
+    "age":20
+  }
+
+  {
+    "name": "",
+    "age": "",
+    "number": "",
+    "email": ""
+  }
+][
+  {
+    "name": "fahiz k",
+    "age": "12",
+    "number": "1234567890",
+    "email": "fahizk100@gmail.com"
+  }
+]

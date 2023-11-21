@@ -31,7 +31,7 @@
 
                 <div class="col-md-6 col-12"> 
                               <h1 class="text-center  display-6 py-3">Enter Details</h1>
-                              <form action="/myform" onsubmit="validateform()" class="px-5" method='post' >
+                              <form action="/myform"  class="px-5" method='post' >
 
                                 <h6 id="nameerror" class="mt-2">Name</h6>
 
@@ -39,19 +39,19 @@
                               
                                 <h6 id="ageerror"  class="mt-2">Age</h6>
 
-                                <input type="text" id="age" class="col-12 col-md-7 py-2 rounded  border-1 border-black">
+                                <input type="text" id="age" name="age" class="col-12 col-md-7 py-2 rounded  border-1 border-black">
 
                                 <h6 id="numbererror"  class="mt-2">Number</h6>
 
-                                <input type="text" id="number" class="col-12 col-md-7 py-2 rounded border-1 border-black">
+                                <input type="text" name="number" id="number" class="col-12 col-md-7 py-2 rounded border-1 border-black">
 
                                 <h6 id="emaileerror"  class="mt-2"> Email</h6>
 
-                                <input type="text" id="email" class="col-12 col-md-7 py-2 rounded  border-1 border-black">
+                                <input type="text" id="email" name="email" class="col-12 col-md-7 py-2 rounded  border-1 border-black">
 
                                 <div class="row col-12 mx-5 my-4 ">
 
-                                <button type="submit" id="" class="col-3 border-0 p-2 rounded ms-4 my-3"> Submit</button>
+                                <button type="submit" id=""  class="col-3 border-0 p-2 rounded ms-4 my-3"> Submit</button>
                             </div> 
 
                             </form>
@@ -64,8 +64,8 @@
     </div>
     <script>
 
-        function validateform(){
-            event.preventDefault()
+        function validateform(event){
+            event.preventDefault();
              
             const username=document.getElementById('name')
             const name=username.value;
@@ -129,7 +129,7 @@
 			}
 			
 		}
-        return true
+        
             
         }
 

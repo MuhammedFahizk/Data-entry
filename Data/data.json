@@ -1,24 +1,32 @@
 [
   {
-    "name":"fahiz",
-    "age":20
+    "name": "Ralph Mcmahon",
+    "age": "Asperiores voluptate",
+    "number": "321",
+    "email": "xewe@mailinator.com"
   },
   {
-    "name":"minhaj",
-    "age":20
-  }
-
+    "name": "Aubrey Harvey",
+    "age": "Illo tempor magni ex",
+    "number": "366",
+    "email": "cafi@mailinator.com"
+  },
   {
-    "name": "",
-    "age": "",
-    "number": "",
-    "email": ""
-  }
-][
+    "name": "Carson Phelps",
+    "age": "Corporis nobis et et",
+    "number": "730",
+    "email": "hesif@mailinator.com"
+  },
   {
-    "name": "fahiz k",
-    "age": "12",
-    "number": "1234567890",
-    "email": "fahizk100@gmail.com"
+    "name": "Jared Mcneil",
+    "age": "Dolore similique rer",
+    "number": "385",
+    "email": "nofydaris@mailinator.com"
+  },
+  {
+    "name": "Honorato Pena",
+    "age": "Magnam adipisci offi",
+    "number": "269",
+    "email": "wawitovyjy@mailinator.com"
   }
 ]

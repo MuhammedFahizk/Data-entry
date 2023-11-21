@@ -14,6 +14,7 @@ http.createServer((req, res) => {
                     res.end('Error reading the file');
                 } else {
                     res.writeHead(200, {'content-type': 'text/html'});
+
                     res.write(data);
                     res.end();
                 }
@@ -47,7 +48,7 @@ http.createServer((req, res) => {
                 const number = formData.get('number');
                 const email = formData.get('email');
                 res.writeHead(200, { 'Content-Type': 'text/plain' });
-                fs.readFile('Data/data.html','utf-8',(err,datajson)=>{
+                fs.readFile('Data/data.json','utf-8',(err,datajson)=>{
                      
                      const formsubmition = {
                         name: name,
@@ -57,14 +58,15 @@ http.createServer((req, res) => {
                      }
                     let existdata=[];
                      try{
-                    existdata=JSON.parse(data)
+                        
+                        existdata=JSON.parse(datajson)
 
                      }catch{
                         console.error('Error reading data.json:', err);
 
                      }
                      existdata.push(formsubmition)
-                     fs.appendFile('Data/data.json', JSON.stringify(existdata, null, 2), 'utf-8', (err,newdata) => {
+                     fs.writeFile('Data/data.json', JSON.stringify(existdata, null, 2), 'utf-8', (err,newdata) => {
                         if (err) {
                             console.error('Error writing data.json:', err);
                         } else {
@@ -73,17 +75,7 @@ http.createServer((req, res) => {
                         }
                     });
     
-                     fs.readFile('data.json','utf-8',(err,data)=>{
-                        if(err){
-                            res.writeHead(500,{'content-type':'text/plain'})
-                            res.end(newdata)
-                        }
-                        else{
-                            res.writeHead(500,{'content-type':'application/json'})
-                            res.end('ok')
-                            console.log(data)
-                        }
-                     })
+                   
                 })
                 res.end(`Received form submission: Name - ${name}, Age - ${age}, Number - ${number}, Email - ${email}`);
            
@@ -99,4 +91,4 @@ http.createServer((req, res) => {
         console.log(err)
         res.end('Bad Request');
     }
-}).listen(8000);
+}).listen(9000);

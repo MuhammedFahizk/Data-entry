@@ -4,6 +4,7 @@ var path = require('path');
 var url = require('url');
 var chokidar=require('chokidar')
 
+var formfile = fs.readFileSync('form.html','utf-8')
 var datauser = (fs.readFileSync('Data/data.json','utf-8'))
 var datahtml = fs.readFileSync('userdata.html','utf-8')
 var userjson =JSON.parse(datauser)
@@ -89,10 +90,27 @@ var server=http.createServer((req, res) => {
     
                    
                 })
-                res.end(`Received form submission: Name - ${name}, Age - ${age}, Number - ${number}, Email - ${email}`);
-           
+                        res.writeHead(200,{'content-type':'text/html'})                
+                        res.end(formfile)
             })
-       }else{ {
+       }else if(pathname ==='/home'){
+        fs.readFile('index.html','utf-8',(err,data)=>{
+            if(err){
+                res.writeHead(500,{'content-type':'text/plain'})
+                res.end('error reading file form page')
+                console.log(err)
+            }
+            else{
+                res.writeHead(200,{'content-type':'text/html'})
+                let  dataadd=( data.replace('{{%content}}',userdata.join(',')))
+                res.write(dataadd);
+                
+                res.end()
+
+                
+            }
+        })}
+       else{ {
                 res.writeHead(404, { 'Content-Type': 'text/plain' });
                 res.end('Not Found');
               }      

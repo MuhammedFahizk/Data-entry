@@ -30,8 +30,8 @@
             
 
                 <div class="col-md-6 col-12"> 
-                              <h1 class="text-center  display-6 py-3">Enter Details</h1>
-                              <form action="/myform"  class="px-5" method='post' >
+                              <h1 class="text-start ms-5 text-black  display-6 py-3">Enter Details</h1>
+                              <form action="/myform" class="px-5" method='post' >
 
                                 <h6 id="nameerror" class="mt-2">Name</h6>
 
@@ -49,13 +49,23 @@
 
                                 <input type="text" id="email" name="email" class="col-12 col-md-7 py-2 rounded  border-1 border-black">
 
-                                <div class="row col-12 mx-5 my-4 ">
+                                <div class="row col-12 ms-0  my-4 ">
 
-                                <button type="submit" id=""  class="col-3 border-0 p-2 rounded ms-4 my-3"> Submit</button>
-                            </div> 
+                                    <button type="submit" id="" onsubmit="return validateform(event)"   class="  col-md-7 col-12 border-0 p-2   rounded  my-0"> SUBMIT</button>
+                                    
+                                </div> 
 
                             </form>
+                            <div class="row col-12 my-4 ">
+
+                            
+                                    <form action="/home" method="post" class="">
+                                        <button type="submit" id=""    class="col-md-6 col-9 border-0 p-2  rounded ms-5  my-0 mb-5 "> HOME </button>
+
+                                    </form>
+                            </div>
                 </div>
+
 
             </div>
            
@@ -83,12 +93,17 @@
 
             if(name === ''){
                 nameerror.innerHTML=(`<span style="color:red">Enter Name *<span>`)
+                    return false
+
             }
             else{
                 nameerror.innerHTML=('Name')
+                
             }
             if(age ===''){
               ageerror.innerHTML=(`<span style="color:red">Enter Age *<span>`)
+                return false
+
 
             }else if(isNaN(age)){
                 ageerror.innerHTML=(`<span style="color:red">Age Must be Number *<span>`)
@@ -99,11 +114,14 @@
             }
             if(num===''){
 
+                return false
+
                 numbererror.innerHTML=(`<span style="color:red">Enter Number *<span>`)
 
             }
              else if(!/^\d{10}$/.test(num)){
             numbererror.innerHTML=(`<span style="color:red">Enter 10 Digit Number *<span>`)
+                return false
 
             }else{
             numbererror.innerHTML=('Number')
@@ -111,26 +129,21 @@
 
           }
          const emailptn = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-		if (email.trim() === ''){
-			emailerror.innerHTML=(`<span style="color:red">Enter Valid Email *<span>`);
+         if (email.trim() === '') {
+    emailerror.innerHTML = (`<span style="color:red">Enter Valid Email *</span>`);
+    return false
 
-			
-		}
-		else{
+} else {
+    emailerror.innerHTML = ('Email');
+    if (!emailptn.test(email)) {
+        emailerror.innerHTML = (`<span style="color:red">Enter Valid*</span>`);
+    } else {
+        emailerror.innerHTML = ('Email');
+    }
+}
 
-			emailerror.innerHTML=('Email');
-			if (!emailptn.test(email)){
-                emailerror.innerHTML=(`<span style="color:red">Enter Valid*<span>`)
-
-			}
-			else{
-				
-                emailerror.innerHTML=('Email')
-			}
-			
-		}
-        
-            
+return true;  // Add this line to prevent form submission if email is valid
+  
         }
 
     </script>

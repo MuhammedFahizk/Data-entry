@@ -1,16 +1,30 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
 <tr class="row border border-2 border-black rounded-2 ms-2 my-1 text-start text-md-center ">
     <td class="col-md-2 col-12 mt-2 ">{{%name}}</td>
     <td class="col-md-1 col-12  mt-2">{{%age}}</td>
     <td class="col-md-4 col-12  mt-2">{{%email}}</td>
     <td class="col-md-2 col-12  mt-2">{{%number}}</td>
     <td class=" row col-md-3 col-12">
-        <button class="col-5 m-2 test-6 border rounded">
+       <form action="edit" method="" class="  col-6">
+        <button class="col-11 m-2 text-6 p-0 border rounded" >
             Edit
         </button>
-        <button class="col-5 m-2 test-6 border rounded">
-            Delete
-        </button>
+       </form>
+        <form action="deleet" class=" col-6">
+            <button class="col-11 m-2 text-6 p-0 border rounded">
+                Delete
+            </button>
+        </form>
        
     </td>
 </tr>
+</body>
+</html>

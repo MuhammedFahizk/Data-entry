@@ -2,8 +2,20 @@ var http = require('http');
 var fs = require('fs');
 var path = require('path');
 var url = require('url');
+var chokidar=require('chokidar')
 
-http.createServer((req, res) => {
+var datauser = (fs.readFileSync('Data/data.json','utf-8'))
+var datahtml = fs.readFileSync('userdata.html','utf-8')
+var userjson =JSON.parse(datauser)
+ let userdata=userjson.map((item)=>{
+    let output=datahtml.replace('{{%name}}',item.name)
+    output=output.replace('{{%age}}',item.age)
+    output=output.replace('{{%number}}',item.number)
+    output=output.replace('{{%email}}',item.email)
+
+    return output
+})
+var server=http.createServer((req, res) => {
     try {
         const pathname = url.parse(req.url).pathname;
 
@@ -14,8 +26,8 @@ http.createServer((req, res) => {
                     res.end('Error reading the file');
                 } else {
                     res.writeHead(200, {'content-type': 'text/html'});
-
-                    res.write(data);
+                   let  dataadd=( data.replace('{{%content}}',userdata.join(',')))
+                    res.write(dataadd);
                     res.end();
                 }
             });
@@ -92,3 +104,10 @@ http.createServer((req, res) => {
         res.end('Bad Request');
     }
 }).listen(9000);
+var watcher = chokidar.watch(['index.html', 'Data/data.json', 'form.html']);
+watcher.on('change', (path) => {
+    server.close(() => {
+        server.listen(9000, () => {
+        });
+    });
+});

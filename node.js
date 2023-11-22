@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const url = require('url');
 const chokidar=require('chokidar')
+const ejs = require('ejs')
 
 const formfile = fs.readFileSync('form.html','utf-8')
 const datauser = (fs.readFileSync('Data/data.json','utf-8'))
@@ -141,20 +142,44 @@ var server=http.createServer((req, res) => {
             }})   
     }
     
-       else if(pathname === '/edit' ){
+       else if(pathname === '/edit'){
         
         try{
             res.writeHead(200,{'content-type':'text/html'})                
             const editid=query.id
             let editdata=[]
             editdata=JSON.parse(datauser)
-            editdata=editdata[editid-1]
-            
-            res.end(formfile)
-        }catch{
-            res.writeHead(500,{'content-type':'text/plain'})     
-            res.end()   
+            const edititem =editdata.find((item)=>item.id == editid)
+            fs.readFile('template.ejs','utf-8',(err,jsdata)=>{
+                fs.readFile('template.html','utf-8',(err1,htmldata)=>{
+                    htmldata = htmldata.replace('{{%name}}',edititem.name)
+                    htmldata = htmldata.replace('{{%age}}',edititem.age)
+                    htmldata = htmldata.replace('{{%number}}',edititem.number)
+                    htmldata = htmldata.replace('{{%email}}',edititem.email)
+                    
+                   let consvalaue=userjson.edititem='fahiz'
+                   console.log(consvalaue)
 
+                    let editpage=jsdata.replace('{{%updata}}',htmldata,)
+                    res.end(editpage)
+                    console.log(edititem)
+                })
+                })
+                
+        
+        }catch{
+            if (err) {
+                res.writeHead(500, { 'Content-Type': 'text/plain' });
+                res.end('Internal Server Error');
+                
+            }
+    
+            else{
+                res.writeHead(500,{'content-type':'text/plain'})     
+                res.end()   
+    
+            }
+            
         }        
         
        

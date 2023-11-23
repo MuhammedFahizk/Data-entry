@@ -38,7 +38,7 @@
 
                                 <h6 id="nameerror" class="mt-2">Name</h6>
 
-                                <input type="text" id="name" name="name" class="col-md-7 col-12 py-2 rounded  border-1 border-black">
+                                <input type="text" id="name" name="name" class="col-md-7 col-12 py-2 rounded  border-1 border-blackn " >
                               
                                 <h6 id="ageerror"  class="mt-2">Age</h6>
 
@@ -54,7 +54,7 @@
 
                                 <div class="row col-12 ms-0  my-4 ">
 
-                                    <button type="submit" id="" onsubmit="return validateform(event)"   class="  col-md-7 col-12 border-0 p-2   rounded  my-0"> SUBMIT</button>
+                                    <button type="submit" id="" onclick="return validateform()"   class="  col-md-7 col-12 border-0 p-2   rounded  my-0"> SUBMIT</button>
                                     
                                 </div> 
 
@@ -77,8 +77,7 @@
     </div>
     <script>
 
-        function validateform(event){
-            event.preventDefault();
+        function validateform(){
              
             const username=document.getElementById('name')
             const name=username.value;

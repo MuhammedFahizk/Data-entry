@@ -4,10 +4,15 @@ const path = require('path');
 const url = require('url');
 const chokidar=require('chokidar')
 const ejs = require('ejs')
+const queryString = require('querystring');
+
 
 const formfile = fs.readFileSync('form.html','utf-8')
 const datauser = (fs.readFileSync('Data/data.json','utf-8'))
 const datahtml = fs.readFileSync('userdata.html','utf-8')
+const indexdata=fs.readFileSync('index.html', 'utf-8')
+
+const templatehtml=fs.readFileSync('template.html','utf-8')
 const userjson =JSON.parse(datauser)
  let userdata=userjson.map((item)=>{
     let output=datahtml.replace('{{%name}}',item.name)
@@ -20,11 +25,15 @@ const userjson =JSON.parse(datauser)
 
 
     return output
-})
+})          
+let eid =0
+
 var server=http.createServer((req, res) => {
     try {
         const pathname = url.parse(req.url).pathname;
         let {query,pathname:path} =url.parse(req.url,true)
+        
+
 
         if (pathname === '/') {
             fs.readFile('index.html', 'utf-8', (err, data) => {
@@ -142,30 +151,33 @@ var server=http.createServer((req, res) => {
             }})   
     }
     
-       else if(pathname === '/edit'){
+       else if(pathname === '/edit'&& req.method==='GET'){
         
         try{
+            
             res.writeHead(200,{'content-type':'text/html'})                
             const editid=query.id
             let editdata=[]
             editdata=JSON.parse(datauser)
             const edititem =editdata.find((item)=>item.id == editid)
-            fs.readFile('template.ejs','utf-8',(err,jsdata)=>{
+            fs.readFile('templatemain.html','utf-8',(err,jsdata)=>{
                 fs.readFile('template.html','utf-8',(err1,htmldata)=>{
                     htmldata = htmldata.replace('{{%name}}',edititem.name)
                     htmldata = htmldata.replace('{{%age}}',edititem.age)
                     htmldata = htmldata.replace('{{%number}}',edititem.number)
                     htmldata = htmldata.replace('{{%email}}',edititem.email)
+                    eid = edititem.id
+                    let firstdtat=userjson[editid-1]
                     
-                   let consvalaue=userjson.edititem='fahiz'
-                   console.log(consvalaue)
 
                     let editpage=jsdata.replace('{{%updata}}',htmldata,)
+
+                    res.writeHead(200, { 'Content-Type': 'text/html' });
                     res.end(editpage)
-                    console.log(edititem)
+
                 })
                 })
-                
+               
         
         }catch{
             if (err) {
@@ -183,27 +195,74 @@ var server=http.createServer((req, res) => {
         }        
         
        
+       } // ...
+
+       else if (pathname === '/editpage' && req.method === 'POST') {
+           let body = '';
+           req.on('data', (chunk) => {
+               body += chunk;
+           });
+       
+           req.on('end', () => {
+               const formData = queryString.parse(body);
+               const inputname = formData.name || '';
+               const inputage = formData.age || '';
+               const inputnumber = formData.number || '';
+               const inputemail = formData.email || '';
+       
+               let editValue = userjson.find((item) => item.id === eid);
+       
+               if (editValue) {
+                   // Update the values
+                   editValue.name = inputname;
+                   editValue.age = inputage;
+                   editValue.number = inputnumber;
+                   editValue.email = inputemail;
+       
+                   // Save the updated data to the JSON file
+                   fs.writeFile('Data/data.json', JSON.stringify(userjson, null, 2), 'utf-8', (err) => {
+                       if (err) {
+                           console.error('Error writing data.json:', err);
+                           res.writeHead(500, { 'Content-Type': 'text/plain' });
+                           res.end('Internal Server Error');
+                       } else {
+                           console.log('Data updated in data.json successfully');
+                           res.writeHead(200, { 'Content-Type': 'text/html' });
+                           fs.readFile('editsuccess.html', 'utf-8', (err, data) => {
+                            if (err) {
+                                res.writeHead(500, { 'content-type': 'text/plain' });
+                                res.end('Error reading the file');
+                            } else {
+                                res.writeHead(200, { 'content-type': 'text/html' });
+                              
+                                res.end(data);
+                            }
+                        });
+                            
+                         
+                        }
+                       
+                   });
+                  
+               } else {
+                   res.writeHead(404, { 'Content-Type': 'text/plain' });
+                   res.end('Data not found for the given ID');
+               }
+           });
        }
-
-       else if(pathname ==='/home'){
-        fs.readFile('index.html','utf-8',(err,data)=>{
-            if(err){
-                res.writeHead(500,{'content-type':'text/plain'})
-                res.end('error reading file form page')
-                console.log(err)
-            }
-            else{
-                res.writeHead(200,{'content-type':'text/html'})
-                let  dataadd=( data.replace('{{%content}}',userdata.join(',')))
-             
-
-                res.write(dataadd);
-                
-                res.end()
-
-                
-            }
-        })}
+       // ...
+         else if(pathname ==='/home'){
+            fs.readFile('index.html', 'utf-8', (err, data) => {
+                if (err) {
+                    res.writeHead(500, { 'content-type': 'text/plain' });
+                    res.end('Error reading the file');
+                } else {
+                    res.writeHead(200, { 'content-type': 'text/html' });
+                    let dataadd = data.replace('{{%content}}', userdata.join(','));
+                    res.write(dataadd);
+                    res.end();
+                }
+            });}
        else{ {
                 res.writeHead(404, { 'Content-Type': 'text/plain' });
                 res.end('Not Found');

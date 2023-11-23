@@ -5,6 +5,7 @@ const url = require('url');
 const chokidar=require('chokidar')
 const ejs = require('ejs')
 const queryString = require('querystring');
+let deletevalu=[]
 
 
 const formfile = fs.readFileSync('form.html','utf-8')
@@ -14,6 +15,8 @@ const indexdata=fs.readFileSync('index.html', 'utf-8')
 
 const templatehtml=fs.readFileSync('template.html','utf-8')
 const userjson =JSON.parse(datauser)
+
+
  let userdata=userjson.map((item)=>{
     let output=datahtml.replace('{{%name}}',item.name)
     output=output.replace('{{%age}}',item.age)
@@ -25,11 +28,14 @@ const userjson =JSON.parse(datauser)
 
 
     return output
-})          
+})     
+
 let eid =0
 
 var server=http.createServer((req, res) => {
     try {
+        var deletenum = []
+
         const pathname = url.parse(req.url).pathname;
         let {query,pathname:path} =url.parse(req.url,true)
         
@@ -83,6 +89,7 @@ var server=http.createServer((req, res) => {
                     let existdata=[];
                         existdata=JSON.parse(datajson)
                         let len=existdata.length
+                        console.log(deletenum)
                         id=len+1
                            
                      const formsubmition = {
@@ -114,44 +121,49 @@ var server=http.createServer((req, res) => {
                         res.end(formfile)
             })
        }
-       else if (pathname === '/deleet'&& req.method ==='GET' ) {
-        fs.readFile('index.html','utf-8',(err,data)=>{
-            if(err){
+       else if (pathname === '/delete'&& req.method ==='GET' ) {
+      
+
+        deletevalu =JSON.parse(datauser)
+        num=deletenum.length+1
+        deletenum.push(num)
+        console.log(deletenum)
+
+        deletevalu=deletevalu.filter((a)=>a.id!=query.id)
+        
+
+        fs.writeFileSync('Data/data.json',JSON.stringify(deletevalu,null,2),'utf-8',(err1,data1)=>{
+            if (err1){
                 res.writeHead(500,{'content-type':'text/plain'})
-                res.end('error reading file form page')
-                console.log(err)
-            }
-            else{
-                res.writeHead(200,{'content-type':'text/html'})
-                let deleetid=query.id
-                    let alldata =[]
-                    alldata=JSON.parse(datauser)
-                    alldata =alldata.filter(a=>a.id != deleetid)
-
-                    fs.writeFile('Data/data.json', JSON.stringify(alldata, null, 2), 'utf-8', (err,newdata) => {
-                        if (err) {
-                            console.error('Error writing data.json:', err);
-                        } else {
-                            console.log('Data deleet');
-                            res.end()
-                        }
-                    });
-                  
-                    
-                
-
-  
-                res.writeHead(200,{'content-type':'text/html'})
-                let  dataadd=( data.replace('{{%content}}',userdata.join(',')))
-              
-                res.write(dataadd);
                 res.end()
+            }else{
+            }
+            console.log(deletenum)
 
-                
-            }})   
-    }
+        
+        })
+            fs.readFile('deletesuccess.html','utf-8',(err,datadelete)=>{
+                if(err) {
+                    res.writeHead(500,{'content-type':'text/plain'})
+                    res.end()
     
-       else if(pathname === '/edit'&& req.method==='GET'){
+                }
+                else{
+                    res.writeHead(200, { 'content-type': 'text/html' });
+                        res.write(datadelete);
+                        res.end();
+    
+    
+                }
+            })
+        }
+
+
+
+    
+
+            
+      else if(pathname === '/edit'&& req.method==='GET'){
         
         try{
             
@@ -195,7 +207,7 @@ var server=http.createServer((req, res) => {
         }        
         
        
-       } // ...
+       } 
 
        else if (pathname === '/editpage' && req.method === 'POST') {
            let body = '';

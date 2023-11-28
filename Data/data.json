@@ -1,1 +1,86 @@
-[]
+[
+  {
+    "id": 2,
+    "name": "Dolan Howard",
+    "age": "12",
+    "number": "9291234123",
+    "email": "biwysuj@mailinator.com"
+  },
+  {
+    "id": 2,
+    "name": "Solomon Mclaughlin",
+    "age": "12",
+    "number": "1234567890",
+    "email": "qujaqul@mailinator.com"
+  },
+  {
+    "id": 3,
+    "name": "Emi Saunders",
+    "age": "12",
+    "number": "0987654321",
+    "email": "fahizk100@gmail.com"
+  },
+  {
+    "id": 4,
+    "name": "Emi Saunders",
+    "age": "12",
+    "number": "0987654321",
+    "email": "fahizk100@gmail.com"
+  },
+  {
+    "id": 5,
+    "name": "Emi Saunders",
+    "age": "12",
+    "number": "0987654321",
+    "email": "fahizk100@gmail.com"
+  },
+  {
+    "id": 6,
+    "name": "Emi Saunders",
+    "age": "12",
+    "number": "0987654321",
+    "email": "fahizk100@gmail.com"
+  },
+  {
+    "id": 7,
+    "name": "Emi Saunders",
+    "age": "12",
+    "number": "0987654321",
+    "email": "fahizk100@gmail.com"
+  },
+  {
+    "id": 8,
+    "name": "Grace Holland",
+    "age": "12",
+    "number": "1234567890",
+    "email": "gifuqipoz@mailinator.com"
+  },
+  {
+    "id": 9,
+    "name": "Grace Holland",
+    "age": "12",
+    "number": "1234567890",
+    "email": "gifuqipoz@mailinator.com"
+  },
+  {
+    "id": 10,
+    "name": "1313",
+    "age": "12",
+    "number": "1234567890",
+    "email": "fahizk100@gmail.com"
+  },
+  {
+    "id": 11,
+    "name": "1313",
+    "age": "12",
+    "number": "1234567890",
+    "email": "fahizk100@gmail.com"
+  },
+  {
+    "id": 12,
+    "name": "fahiz k",
+    "age": "12",
+    "number": "1234567890",
+    "email": "fahizk100@gmail.com"
+  }
+]

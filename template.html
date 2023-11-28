@@ -19,7 +19,7 @@
 
                                 <input type="text" id="age" name="age"  value="{{%age}}" class="col-12 col-md-7 py-2 rounded  border-1 border-black">
 
-                                <h6 id="numbererror"  class="mt-2">Number</h6>
+                                <h6 id="numbererror"   class="mt-2">Number</h6>
 
                                 <input type="text" name="number"  value="{{%number}}" id="number" class="col-12 col-md-7 py-2 rounded border-1 border-black">
 
@@ -37,77 +37,80 @@
 
                             <script>
 
-                                function validateform(){
-                                     
-                                    const username=document.getElementById('name')
-                                    const name=username.value;
-                                    const nameerror =document.getElementById('nameerror');
-                                    const userage =document.getElementById('age')
-                                    const age=userage.value
-                                    const ageerror=document.getElementById('ageerror')
-                                    const usernum =document.getElementById('number')
-                                    const num=usernum.value
-                                    const numbererror=document.getElementById('numbererror')
-                                    const useremail=document.getElementById('email')
-                                    const email=useremail.value
-                                    const emailerror =document.getElementById('emaileerror')
-                        
-                        
-                                    if(name === ''){
-                                        nameerror.innerHTML=(`<span style="color:red">Enter Name *<span>`)
-                                            return false
-                        
-                                    }
-                                    else{
-                                        nameerror.innerHTML=('Name')
-                                        
-                                    }
-                                    if(age ===''){
-                                      ageerror.innerHTML=(`<span style="color:red">Enter Age *<span>`)
-                                        return false
-                        
-                        
-                                    }else if(isNaN(age)){
-                                        ageerror.innerHTML=(`<span style="color:red">Age Must be Number *<span>`)
-                                            return false
-                                    }
-                                    else{
-                                        ageerror.innerHTML=('Age')
-                                    }
-                                    if(num===''){
-                        
-                                        return false
-                        
-                                        numbererror.innerHTML=(`<span style="color:red">Enter Number *<span>`)
-                        
-                                    }
-                                     else if(!/^\d{10}$/.test(num)){
-                                    numbererror.innerHTML=(`<span style="color:red">Enter 10 Digit Number *<span>`)
-                                        return false
-                        
-                                    }else{
-                                    numbererror.innerHTML=('Number')
-                        
-                        
-                                  }
-                                 const emailptn = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-                                 if (email.trim() === '') {
-                            emailerror.innerHTML = (`<span style="color:red">Enter Valid Email *</span>`);
-                            return false
-                        
-                        } else {
-                            emailerror.innerHTML = ('Email');
-                            if (!emailptn.test(email)) {
-                                emailerror.innerHTML = (`<span style="color:red">Enter Valid*</span>`);
-                            } else {
-                                emailerror.innerHTML = ('Email');
-                            }
-                        }
-                        
-                        return true; 
-                          
-                                }
-                        
+function validateform(){
+             
+             const username=document.getElementById('name')
+             const name=username.value;
+             const nameerror =document.getElementById('nameerror');
+             const userage =document.getElementById('age')
+             const age=userage.value
+             const ageerror=document.getElementById('ageerror')
+             const usernum =document.getElementById('number')
+             const num=usernum.value
+             const numbererror=document.getElementById('numbererror')
+             const useremail=document.getElementById('email')
+             const email=useremail.value
+             const emailerror =document.getElementById('emaileerror')
+ 
+ 
+             if(name === ''){
+                 nameerror.innerHTML=(`<span style="color:red">Enter Name *<span>`)
+                     return false
+ 
+             }
+             else{
+                 nameerror.innerHTML=('Name')
+                 
+             }
+             if(age ===''){
+                  ageerror.innerHTML=(`<span style="color:red">Enter Age *<span>`)
+                 return false
+ 
+ 
+             }else if(isNaN(age)){
+                 ageerror.innerHTML=(`<span style="color:red">Age Must be Number *<span>`)
+                     return false
+             }
+             else{
+                 ageerror.innerHTML=('Age')
+             }
+             if(num ===''){
+ 
+ 
+                 numbererror.innerHTML=(`<span style="color:red">Enter Number *<span>`)
+                 
+                     return false
+ 
+ 
+             }
+              else if(!/^\d{10}$/.test(num)){
+             numbererror.innerHTML=(`<span style="color:red">Enter 10 Digit Number *<span>`)
+                 return false
+ 
+             }else{
+             numbererror.innerHTML=('Number')
+             
+ 
+           }
+          const emailptn = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+          if (email.trim() === '') {
+             emailerror.innerHTML = (`<span style="color:red">Enter Valid Email *</span>`);
+             return false
+ 
+ } 
+    else if (!emailptn.test(email)) {
+         emailerror.innerHTML = (`<span style="color:red">Enter Valid*</span>`);
+         return false
+     } else {
+         emailerror.innerHTML = ('Email');
+     
+     }
+     
+     return true;  
+ 
+ }
+   
+  
                             </script>
  </body>
  </html>
